@@ -1,4 +1,4 @@
-defmodule Rumbl.Router do
+ defmodule Rumbl.Router do
   use Rumbl.Web, :router
 
   pipeline :browser do
