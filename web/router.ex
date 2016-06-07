@@ -22,6 +22,12 @@
     resources "/sessions", SessionController, only: [:new, :create, :delete]
     resources "/videos", VideoController
   end
+  
+  scope "/manage", Rumble do
+    pipe_through [:browser, :authenticate_user]
+
+    resources "/videos", VideoController
+  end
 
   # Other scopes may use custom stacks.
   # scope "/api", Rumbl do

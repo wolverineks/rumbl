@@ -2,7 +2,7 @@ defmodule Rumbl.Video do
   use Rumbl.Web, :model
 
   schema "videos" do
-    field :" url", :string
+    field :url, :string
     field :title, :string
     field :description, :string
     belongs_to :user, Rumbl.User
