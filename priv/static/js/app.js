@@ -1357,7 +1357,7 @@ var Video = {
     var msgContainer = document.getElementById("msg-container");
     var msgInput = document.getElementById("msg-input");
     var postButton = document.getElementById("msg-submit");
-    var vidChannel = socket.channel("videos:", +videoId);
+    var vidChannel = socket.channel("videos:" + videoId);
 
     postButton.addEventListener("click", function (e) {
       var payload = { body: msgInput.value, at: _player2.default.getCurrentTime() };
