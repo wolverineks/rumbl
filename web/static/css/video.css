@@ -1,3 +1,5 @@
 #msg-container {
-  min-height: 190px;
+  height: 190px;
+  height: 190px;
+  overflow-y: scroll;
 }

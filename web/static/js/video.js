@@ -28,6 +28,15 @@ let Video = {
       this.renderAnnotation(msgContainer, resp)
     })
 
+    msgContainer.addEventListener("click", e => {
+      e.preventDefault()
+      let seconds = e.target.getAttribute("data-seek") ||
+                    e.target.parentNode.getAttribute("data-seek")
+      if(!seconds){ return }
+
+      Player.seekTo(seconds)
+    })
+
     vidChannel.join()
       .receive("ok", resp => {
         this.scheduleMessages(msgContainer, resp.annotations)
@@ -45,7 +54,7 @@ let Video = {
     let template = document.createElement("div")
     template.innerHTML = `
     <a href="#" data-seek="${this.esc(at)}">
-      <b>${this.esc(user.username)}</b>: ${this.esc(body)}
+      <b>[${this.formatTime(at)}]: ${this.esc(user.username)}</b>: ${this.esc(body)}
     </a>
     `
     msgContainer.appendChild(template)

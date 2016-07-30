@@ -1371,6 +1371,16 @@ var Video = {
       _this2.renderAnnotation(msgContainer, resp);
     });
 
+    msgContainer.addEventListener("click", function (e) {
+      e.preventDefault();
+      var seconds = e.target.getAttribute("data-seek") || e.target.parentNode.getAttribute("data-seek");
+      if (!seconds) {
+        return;
+      }
+
+      _player2.default.seekTo(seconds);
+    });
+
     vidChannel.join().receive("ok", function (resp) {
       _this2.scheduleMessages(msgContainer, resp.annotations);
     }).receive("error", function (reason) {
@@ -1388,7 +1398,7 @@ var Video = {
     var at = _ref.at;
 
     var template = document.createElement("div");
-    template.innerHTML = "\n    <a href=\"#\" data-seek=\"" + this.esc(at) + "\">\n      <b>" + this.esc(user.username) + "</b>: " + this.esc(body) + "\n    </a>\n    ";
+    template.innerHTML = "\n    <a href=\"#\" data-seek=\"" + this.esc(at) + "\">\n      <b>[" + this.formatTime(at) + "]: " + this.esc(user.username) + "</b>: " + this.esc(body) + "\n    </a>\n    ";
     msgContainer.appendChild(template);
     msgContainer.scrollTop = msgContainer.scrollHeight;
   },

@@ -16,10 +16,7 @@
 
       </div>
       <div class="panel-footer">
-        <textarea id="msg-input"
-                  rows="3"
-                  class="form-control"
-                  placeholder="Comment...">
+        <textarea id="msg-input" rows="3" class="form-control" placeholder="Comment" autofocus="true">
         </textarea>
         <button id="msg-submit" class="btn btn-primary form-control" type="submit">
           Post
