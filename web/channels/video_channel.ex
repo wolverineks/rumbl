@@ -22,7 +22,6 @@ defmodule Rumbl.VideoChannel do
     user = Repo.get(Rumbl.User, socket.assigns.user_id)
     handle_in(event, params, user, socket)
   end
-
   def handle_in("new_annotation", params, user, socket) do
     changeset =
       user
@@ -31,15 +30,36 @@ defmodule Rumbl.VideoChannel do
 
     case Repo.insert(changeset) do
       {:ok, annotation} ->
-        broadcast! socket, "new_annotation", %{
-          id: annotation.id,
-          user: Rumbl.UserView.render("user.json", %{user: user}),
-          body: annotation.body,
-          at: annotation.at
-        }
+        broadcast_annotation(socket, annotation)
+        Task.start_link(fn -> compute_additional_info(annotation, socket) end)
         {:reply, :ok, socket}
       {:error, changeset} ->
         {:reply, {:error, %{errors: changeset}}, socket}
+    end
+  end
+
+  def broadcast_annotation(socket, annotation) do
+    annotation = Repo.preload(annotation, :user)
+    rendered_annotation = Phoenix.View.render(AnnotationView, "annotation.json", %{
+      annotation: annotation
+      })
+    broadcast! socket, "new_annotation", rendered_annotation
+  end
+
+  defp compute_additional_info(annotation, socket) do
+    for result <- Rumbl.InfoSys.compute(annotation.body, limit: 1, timeout: 10_000) do
+      attrs = %{url: result.url, body: result.text, at: annotation.at}
+      info_changeset =
+        Repo.get_by!(Rumbl.User, username: result.backend)
+        |> build_assoc(:annotations, video_id: annotation.video_id)
+        |> Rumbl.Annotation.changeset(attrs)
+
+      case Repo.insert(info_changeset) do
+        {:ok, info_annotation} ->
+          broadcast_annotation(socket, info_annotation)
+        {:error, _changeset} ->
+          :ignore
+      end
     end
   end
 end

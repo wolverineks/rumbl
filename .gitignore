@@ -4,3 +4,5 @@
 erl_crash.dump
 *.ez
 /node_modules
+/config/prod.secret.exs
+/config/dev.secret.exs

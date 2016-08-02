@@ -13,3 +13,5 @@ config :rumbl, Rumbl.Repo,
   password: "postgres",
   database: "rumbl_prod",
   pool_size: 20
+
+config :rumbl, :wolfram, app_id: "WRE95J-YH9KTYK67Y"

@@ -40,7 +40,9 @@ defmodule Rumbl.Mixfile do
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
      {:comeonin, "~>2.0"},
-     {:excoveralls, "~> 0.5.5"}]
+     {:excoveralls, "~> 0.5.5"},
+     {:sweet_xml, "~>0.5.0"},
+   ]
   end
 
   # Aliases are shortcut or tasks specific to the current project.
