@@ -34,7 +34,7 @@ defmodule Rumbl.Mixfile do
   defp deps do
     [{:phoenix, "~> 1.1.6"},
      {:postgrex, ">= 0.0.0"},
-     {:phoenix_ecto, "~> 2.0"},
+     {:phoenix_ecto, "~> 4.1"},
      {:phoenix_html, "~> 2.4"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
