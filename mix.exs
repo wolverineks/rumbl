@@ -40,7 +40,7 @@ defmodule Rumbl.Mixfile do
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
      {:comeonin, "~>2.0"},
-     {:excoveralls, "~> 0.5.5"},
+     {:excoveralls, "~> 0.12.3"},
      {:sweet_xml, "~>0.5.0"},
    ]
   end
